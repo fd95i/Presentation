@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1499038553 source:c:\users\fedex_000\desktop\utn\segundo año\ssl\tp\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"scanner.h"
+
+1498415157 c:\users\fedex_000\desktop\utn\segundo año\ssl\tp\scanner.h
+
+1499033798 source:c:\users\fedex_000\desktop\utn\segundo año\ssl\tp\scanner.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"scanner.h"
+

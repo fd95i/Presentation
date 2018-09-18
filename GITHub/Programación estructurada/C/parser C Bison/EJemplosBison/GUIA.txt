@@ -1,0 +1,124 @@
+libro.y es el ejemplo que da el libro de la cátedra, lo podemos probar con (el símbolo $ indica el prompt de la consola, lo pongo para distinguir comandos de mensajes):
+$ bison libro.y
+$ gcc -o libro libro.tab.c
+$ ./libro 
+aabcc
+Pertenece al LIC
+
+En la corrida anterior ejecuto el programa e ingreso aabcc, puedo enviarlo directo con:
+$ echo aabc | ./libro 
+syntax error
+No pertenece al LIC
+
+Notar que al no usar ninguna directiva la salida de bison es libro.tab.c
+
+---------------------------------------------------------------
+08test es similar al ejemplo 8 de flex, pero ahora lo combinamos con el bison. Notar que en flex uso directivas para los nombres de los archivos generados, en tanto que en bison dejo los nombres por defecto (usamos -d la invocar bison para indicar que debe generar un header con el nombres estándar, es decir agregando .tab.h)
+
+El header de flex le informa a bison de la existencia de yylex, en tanto que el header de bison le informa a flex la existencia de los tokens y de yylval
+
+$ flex 08test.l
+$ bison -d 08test.y
+$ gcc -o 08test 08test.c 08test.tab.c -lfl
+$ ./08test <08pruebas.txt 
+Token: OCTAL		Valor: 0566
+Token: DECIMAL		Valor: 1256
+Token: DECIMAL		Valor: 12UL
+Token: REAL		Valor: .2
+Token: REAL		Valor: 3.2
+Token: REAL		Valor: .2e-5
+Token: REAL		Valor: 5E5
+Token: REAL		Valor: 6e-2
+Token: REAL		Valor: 6.F
+Token: REAL		Valor: 7.E2L
+Token: DECIMAL		Valor: 5lu
+Token: DECIMAL		Valor: 67L
+Token: HEXA		Valor: 0xFb
+Token: HEXA		Valor: 0Xa1b
+Token: DECIMAL		Valor: 5
+Token: REAL		Valor: 5.23
+Token: REAL		Valor: .45
+Pertenece al LIC
+
+Notar en flex el uso de strdup para asignar una copia de yytext a yylval.
+Comentario, en la producción de lista podría haber usado cte en lugar de %empty
+
+---------------------------------------------------------------
+registro es un ejemplo de como usar un registro semántico de tipo struct, para correr el ejemplo:
+
+$ flex registro.l
+$ bison -d registro.y
+$ gcc -o registro registro.c registro.tab.c -lfl
+$ ./registro <registro.txt
+Token: DECIMAL		Valor texto: 123	Valor entero: 123
+Token: REAL		Valor texto: .25	Valor real: 0.25
+Token: REAL		Valor texto: 0.50	Valor real: 0.5
+Token: DECIMAL		Valor texto: 0011	Valor entero: 11
+Token: REAL		Valor texto: 2e2	Valor real: 200
+Token: REAL		Valor texto: 3E-7	Valor real: 3e-07
+Token: REAL		Valor texto: 78.	Valor real: 78
+Token: ID		Valor texto: var1
+Token: ID		Valor texto: var2
+Constante decimal mal formada
+
+Pertenece al LIC
+
+Notar que en flex uso yyerror y yylval que son informadas por bison en el header.
+Notar también que el error léxico que detecta flex no es detectado por bison, para que bison lo note debería haber usado una variable global de modo que bison la pueda consultar
+---------------------------------------------------------------
+registroerr es similar al anterior pero si detectamos errores léxicos mediante la variable nerrlex llamamos a YYABORT para indicar error. Es necesario agregar una no terminal nuevo de modo de asegurarnos que la acción que consulte a nerrlex se ejecute al final del análisis.
+
+$ flex registroerr.l
+$ bison -d registroerr.y
+$ gcc -o registroerr registroerr.c registroerr.tab.c -lfl
+$ ./registroerr <registro.txt
+Token: DECIMAL		Valor texto: 123	Valor entero: 123
+Token: REAL		Valor texto: .25	Valor real: 0.25
+Token: REAL		Valor texto: 0.50	Valor real: 0.5
+Token: DECIMAL		Valor texto: 0011	Valor entero: 11
+Token: REAL		Valor texto: 2e2	Valor real: 200
+Token: REAL		Valor texto: 3E-7	Valor real: 3e-07
+Token: REAL		Valor texto: 78.	Valor real: 78
+Token: ID		Valor texto: var1
+Token: ID		Valor texto: var2
+Constante decimal mal formada
+
+No pertenece al LIC
+---------------------------------------------------------------
+El ejemplo union es similar al de registroerr pero con los siguientes cambios:
+En lugar de una estructura usamos las directiva union. Esto hace que en flex solo cargue el campo que tiene sentido, del mismo modo que lo hacía con estructura. Pero en bison aclaro para cada token que tipo de dato de la unión voy a usar, por eso luego uso el registro directamente, por ejemplo $DECIMAL. Que DECIMAL usa int lo aclaré con %token<num> DECIMAL.
+puedo forzar a elegir otro campo de la unión con $<campo>n, por ejemplo $<str>1 (solo que usé el que corresponde, no tenía sentido usar otro). Si no declaro que tipo de dato es un token, entonces debo usar la notación anterior obligatoriamente.
+Tambien definimos la salida de bison, por eso lo uso sin -d, y usamos yylineno.
+La función yyerror es un poco más elaborada
+
+$ flex union.l
+$ bison union.y
+$ gcc -o union unionscanner.c unionparser.c -lfl
+$ ./union <registro.txt
+Token: DECIMAL		Valor entero: 123
+Token: REAL		Valor real: 0.25
+Token: REAL		Valor real: 0.5
+Token: DECIMAL		Valor entero: 11
+Token: REAL		Valor real: 200
+Token: REAL		Valor real: 3e-07
+Token: REAL		Valor real: 78
+Token: ID		Valor texto: var1
+Token: ID		Valor texto: var2
+línea #10: Constante decimal mal formada
+
+No pertenece al LIC
+---------------------------------------------------------------
+El ejemplo merror (por manejo de errores) simplemente espera nros o palabras separados por comas, terminando con !
+Se muestra el uso del no terminal error para que bison siga analizando y el uso de YYABORT
+
+$ flex merror.l
+$ bison merror.y
+$ gcc -o merror merror-scan.c merror-par.c -lfl
+$ ./merror <merror.txt
+línea #3: syntax error, unexpected NRO, expecting PALABRA
+línea #4: syntax error, unexpected PALABRA, expecting NRO
+línea #5: Error léxico
+línea #5: syntax error, unexpected '!', expecting PALABRA
+línea #8: syntax error, unexpected $end, expecting '!' or ','
+No pertenece al LIC
+

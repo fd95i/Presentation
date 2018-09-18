@@ -1,0 +1,267 @@
+body{
+	margin: auto;
+	font-family: calibri;
+	background-color: #E8E8E8;
+	border:none;
+}
+
+h1{
+	padding:120px 0 0 25px;
+	font-family: georgia;
+	font-size: 80px;
+	color: black;
+	text-shadow: 2px 2px black; 
+}
+
+#piedepag{
+	min-width: 1280px;
+	font-size: 18px;
+	background-color: lightgrey;
+	padding:10px 0 10px 0px;
+	margin-bottom: 0%;
+	text-align: center;
+}
+
+#cabecera{
+	width: 100%;
+	min-width: 1280px;
+	height: 100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#contenido{
+	min-width: 1034px;
+	height: 100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.doslogo {
+	margin: auto;
+	display: block;
+	padding-bottom: 60px;
+}
+
+.nav {
+	background-color: lightgray;
+	color: black;
+	list-style: none;
+	text-align: right;
+	margin:0;
+}
+
+.nav li {
+	display: inline-block;
+	padding: 20px 20px 0px 20px;
+	font-size: 30px;
+	font-family: calibri;
+}
+
+.nav li a {
+	background-color: lightgray;
+	text-decoration: none;
+	text-shadow: 0.5px 0.5px grey;
+	color: black;
+}
+
+.completar_nav{
+	background-color: lightgray;
+}
+
+.completar_nav .nav li a:hover{
+
+	padding: 10px 10px 10px 10px;
+	border-radius: 15%;
+	color: white;
+	background-color: #003366;
+	text-shadow: 1px 1px black;
+}
+
+.logo{
+	color: #000000;
+	float: left;
+	vertical-align: middle;
+	display: block;
+	padding-bottom: 7px;
+	padding-top: 4px;
+}
+
+.logo > a {
+	text-decoration: none;
+	color: #000000;
+}
+
+.banner > .banner-image {
+	width: 100%;
+	height: 100%;
+}
+
+.centro{
+	font-size: 24px;
+	text-align: center;
+	font-style: italic;
+}
+
+.imgmargeni{
+	padding-left: 45px;
+	padding-top: 25px;
+	border-radius: 20% 20% 20% 20%;
+}
+
+/* formulario de servicios */
+
+form{
+	width:1034px;
+	margin:auto;
+	border: 5px solid darkgrey;
+	background-color: lightgrey;
+	padding: 10px 20px;
+	box-sizing: border-box;
+}
+input, textarea{
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 10px 10px 10px 10px;
+	box-sizing: border-box;
+}
+textarea{
+	min-height: 100px;
+	max-height: 200px;
+}
+
+#boton:hover{
+	cursor: pointer;
+	background-color: white;
+
+}
+#boton{
+	background-color: rgba(0,0,0,0.5);
+	padding: 7px 10px;
+	width: 40%;
+	border: none;
+}
+
+/* imagenes 1 */
+
+.presentacion{
+	width: 1024px;
+	height: 600px;
+	border: 5px solid darkgrey;
+	margin-top: 150px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	background-image: url(images/motos.jpg);
+	background-size: 100% 100%;
+	animation: pres 10s infinite;
+	animation-direction: alternate;
+}
+
+.telefono{
+	color:#003366;
+}
+
+.tabla{
+	width: 1034px;
+	height: 50px;
+	border: 5px solid darkgrey;
+	background-color: white;
+	font-family: "Century Gothic",CenturyGothic;
+	font-size: 24px;
+	margin-top: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	text-align: center;
+}
+
+.textoMarco{
+	width: 919px;
+	border-right: 5px solid darkgrey;
+	border-left: 5px solid darkgrey;
+	font-family: "Century Gothic",CenturyGothic;
+	color: white;
+	font-size: 24px;
+	margin-top: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	text-align: left;
+	padding: 0 0 0px 105px;
+	background-color: blue;
+}
+
+.renglon{
+	padding-bottom: 35px;
+}
+
+.tituloMarco{
+	font-weight: bolder;
+	text-align: center;
+	font-family: century gothic;
+	color: white;
+	background-color: #003366;
+	font-size: 72px;
+	width: 1024px;
+	border-right: 5px solid darkgrey;
+	border-left: 5px solid darkgrey;
+	text-align: center;
+	margin-top: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+}
+
+@keyframes pres{
+	0%,15%{
+		background-image: url(images/Index/motos.jpg);
+		opacity: 1;
+	}
+	16%,17%{
+		opacity: 0.1;
+	}
+	18%,33%{
+		background-image: url(images/Index/incendio.jpg);
+		opacity: 1;
+	}
+	34%,35%{
+		opacity: 0.1;
+	}
+	36%,51%{
+		background-image: url(images/Index/cftra.jpg);
+		opacity: 1;
+	}
+	52%,53%{
+		opacity: 0.1;
+	}
+	54%,69%{
+		background-image: url(images/Index/rcap.jpg);
+		opacity: 1;
+	}
+	70%,71%{
+		opacity: 0.1;
+	}
+	72%,87%{
+		background-image: url(images/Index/auto.jpg);
+		opacity: 1;
+	}
+	88%,89%{
+		opacity: 0.1;
+	}
+	90%,100%{
+		background-image: url(images/Index/idc.jpg);
+		opacity: 1;
+	}
+
+
+}@media (max-width: 480px){
+	form{
+		width:100%;
+	}
+	.presentacion{
+		width: 100%;
+	}
+	
+
+}

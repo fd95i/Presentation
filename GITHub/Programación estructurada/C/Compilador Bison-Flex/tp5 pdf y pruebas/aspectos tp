@@ -1,0 +1,42 @@
+adaptaciones:
+
+lenguajes similares, salidas parecidas. parser descendente recursivo vs gramatica achatada de bison. para registros semanticos char* $1 $2 etc-
+donde generar el codigo:
+
+
+un fuente: PROGRAMA {comenzar}
+fin {stop}
+
+definir busca en el diccionario, si no la encuentra exito y la pone en el diccionario y pone define sda,entero . Si la encuentra retorna error semantico variable redefinida y aumenta el contador de errores semanticos
+
+YYERROR: para accion semantica de variable no definida anteriormente
+
+if(!definir($){
+	YYERROR;
+}
+
+if(!verifica($){
+	YYERROR;
+} le dice a bison que lo analice como error sintactico. (para evitar que genere cosas que no tienen que ir). pepe:= 5*3+1 evita el * y +
+
+las rutinas semanticas de read y write no necesitan que se verifique si existe el id
+
+considerar la expresion como resuelta
+
+store es para copiar variable temporal en id de la izq
+$1 = $3 con inst store
+
+expresiones
+e: e + e {$$=generarInf($1,$3,constante de caracter}
+   e * e {$$=generarInf($1,$3,constante de caracter}
+   - e {INV}
+generarInf es un switch que decide la op y genera un temporal, la agrega al diccionario y la declara devuelve un puntero a caracter con el nombre de la temporal
+
+temporales contador estatico
+
+$$ en definir no
+si con expresiones
+regla implicita $$ = $1
+
+libro habla de rutina general
+
