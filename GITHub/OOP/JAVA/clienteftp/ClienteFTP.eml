@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="commons-net-3.6" value="project"/>
+		<level name="sqljdbc42" value="project"/>
+	</levels>
+</component>
